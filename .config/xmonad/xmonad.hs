@@ -65,40 +65,40 @@ myConfig = def
   , ((myModMask, xK_F11      ), sendMessage NextLayout  )
   , ((myModMask, xK_F12      ), sendMessage ToggleStruts)
   -- Window Navigation.
-  , ((myModMask, xK_Up   ), sendMessage $ Go U)
-  , ((myModMask, xK_Down ), sendMessage $ Go D)
-  , ((myModMask, xK_Left ), sendMessage $ Go L)
-  , ((myModMask, xK_Right), sendMessage $ Go R)
-  -- Workspace Navigation. (Move to workspace)
-  , ((myModMask, xK_KP_End      ), windows $ W.view "1") -- Numpad 1
-  , ((myModMask, xK_KP_Down     ), windows $ W.view "2") -- Numpad 2
-  , ((myModMask, xK_KP_Page_Down), windows $ W.view "3") -- Numpad 3
-  , ((myModMask, xK_KP_Left     ), windows $ W.view "4") -- Numpad 4
-  , ((myModMask, xK_KP_Begin    ), windows $ W.view "5") -- Numpad 5
-  , ((myModMask, xK_KP_Right    ), windows $ W.view "6") -- Numpad 6
-  , ((myModMask, xK_KP_Home     ), windows $ W.view "7") -- Numpad 7
-  , ((myModMask, xK_KP_Up       ), windows $ W.view "8") -- Numpad 8
-  , ((myModMask, xK_KP_Page_Up  ), windows $ W.view "9") -- Numpad 9
-  -- Workspace Navigation. (Move window to workspace)
-  , ((myModMask .|. shiftMask, xK_KP_End      ), windows $ W.shift "1") -- Numpad 1
-  , ((myModMask .|. shiftMask, xK_KP_Down     ), windows $ W.shift "2") -- Numpad 2
-  , ((myModMask .|. shiftMask, xK_KP_Page_Down), windows $ W.shift "3") -- Numpad 3
-  , ((myModMask .|. shiftMask, xK_KP_Left     ), windows $ W.shift "4") -- Numpad 4
-  , ((myModMask .|. shiftMask, xK_KP_Begin    ), windows $ W.shift "5") -- Numpad 5
-  , ((myModMask .|. shiftMask, xK_KP_Right    ), windows $ W.shift "6") -- Numpad 6
-  , ((myModMask .|. shiftMask, xK_KP_Home     ), windows $ W.shift "7") -- Numpad 7
-  , ((myModMask .|. shiftMask, xK_KP_Up       ), windows $ W.shift "8") -- Numpad 8
-  , ((myModMask .|. shiftMask, xK_KP_Page_Up  ), windows $ W.shift "9") -- Numpad 9
+  , ((myModMask, xK_h), sendMessage $ Go L) -- Move focus left. 
+  , ((myModMask, xK_j), sendMessage $ Go D) -- Move focus down.
+  , ((myModMask, xK_k), sendMessage $ Go U) -- Move focus up.
+  , ((myModMask, xK_l), sendMessage $ Go R) -- Move focus right.
   -- Window Swapping.
-  , ((myModMask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
-  , ((myModMask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
-  , ((myModMask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
-  , ((myModMask .|. shiftMask, xK_Right), sendMessage $ Swap R)
+  , ((myModMask .|. shiftMask, xK_h), sendMessage $ Swap L) -- Move window left.
+  , ((myModMask .|. shiftMask, xK_j), sendMessage $ Swap D) -- Move window down.
+  , ((myModMask .|. shiftMask, xK_k), sendMessage $ Swap U) -- Move window up.
+  , ((myModMask .|. shiftMask, xK_l), sendMessage $ Swap R) -- Move window right.
   -- Binary Space Partition.
-  , ((myModMask .|. controlMask, xK_Up   ), sendMessage $ ExpandTowards U)
-  , ((myModMask .|. controlMask, xK_Down ), sendMessage $ ExpandTowards D)
-  , ((myModMask .|. controlMask, xK_Left ), sendMessage $ ExpandTowards L)
-  , ((myModMask .|. controlMask, xK_Right), sendMessage $ ExpandTowards R)
+  , ((myModMask .|. controlMask, xK_h), sendMessage $ ExpandTowards L) -- Expand window left.
+  , ((myModMask .|. controlMask, xK_j), sendMessage $ ExpandTowards D) -- Expand window down.
+  , ((myModMask .|. controlMask, xK_k), sendMessage $ ExpandTowards U) -- Expand window up.
+  , ((myModMask .|. controlMask, xK_l), sendMessage $ ExpandTowards R) -- Expand window right.
+  -- Workspace Navigation. (Move to workspace)
+  , ((myModMask, xK_KP_End      ), windows $ W.view "1") -- Numpad 1 = focus ws1
+  , ((myModMask, xK_KP_Down     ), windows $ W.view "2") -- Numpad 2 = focus ws2
+  , ((myModMask, xK_KP_Page_Down), windows $ W.view "3") -- Numpad 3 = focus ws3
+  , ((myModMask, xK_KP_Left     ), windows $ W.view "4") -- Numpad 4 = focus ws4
+  , ((myModMask, xK_KP_Begin    ), windows $ W.view "5") -- Numpad 5 = focus ws5
+  , ((myModMask, xK_KP_Right    ), windows $ W.view "6") -- Numpad 6 = focus ws6
+  , ((myModMask, xK_KP_Home     ), windows $ W.view "7") -- Numpad 7 = focus ws7
+  , ((myModMask, xK_KP_Up       ), windows $ W.view "8") -- Numpad 8 = focus ws8
+  , ((myModMask, xK_KP_Page_Up  ), windows $ W.view "9") -- Numpad 9 = focus ws9
+  -- Workspace Navigation. (Move window to workspace)
+  , ((myModMask .|. shiftMask, xK_KP_End      ), windows $ W.shift "1") -- Numpad 1 = move ws1
+  , ((myModMask .|. shiftMask, xK_KP_Down     ), windows $ W.shift "2") -- Numpad 2 = move ws2
+  , ((myModMask .|. shiftMask, xK_KP_Page_Down), windows $ W.shift "3") -- Numpad 3 = move ws3
+  , ((myModMask .|. shiftMask, xK_KP_Left     ), windows $ W.shift "4") -- Numpad 4 = move ws4
+  , ((myModMask .|. shiftMask, xK_KP_Begin    ), windows $ W.shift "5") -- Numpad 5 = move ws5
+  , ((myModMask .|. shiftMask, xK_KP_Right    ), windows $ W.shift "6") -- Numpad 6 = move ws6
+  , ((myModMask .|. shiftMask, xK_KP_Home     ), windows $ W.shift "7") -- Numpad 7 = move ws7
+  , ((myModMask .|. shiftMask, xK_KP_Up       ), windows $ W.shift "8") -- Numpad 8 = move ws8
+  , ((myModMask .|. shiftMask, xK_KP_Page_Up  ), windows $ W.shift "9") -- Numpad 9 = move ws9
   ]
   
 -- The Layout Hook.
