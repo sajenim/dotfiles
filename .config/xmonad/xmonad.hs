@@ -6,7 +6,7 @@
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
 
 -- Module Imports.
-import XMonad
+import XMonad hiding ( (|||) )
 -- Configurations.
 import XMonad.Config.Desktop                            -- Desktop environment integration.
 -- Actions.
@@ -18,6 +18,8 @@ import XMonad.Util.SpawnOnce                            -- Spawn Program Once on
 import XMonad.Layout.Spacing                            -- Add gaps between windows.
 import XMonad.Layout.WindowNavigation                   -- Allows easy navigation of a workspace.
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- Split the focused window in half, based off of BSPWM.
+import XMonad.Layout.Renamed                            -- Modify the description of a layout.
+import XMonad.Layout.LayoutCombinators
 -- Hooks.
 import XMonad.Hooks.EwmhDesktops                        -- Tell panel applications about its workspaces and the windows there in.
 import XMonad.Hooks.ManageDocks                         -- Tools to automatically manage dock type programs.
@@ -64,8 +66,7 @@ myConfig = def
   , ((myModMask, xK_BackSpace), spawn "dmenu_run"       ) -- Open application launcher.
   , ((myModMask, xK_q        ), sendMessage $ Rotate    ) -- Rotate layout horizontal | vertical.
   , ((myModMask, xK_Tab      ), nextScreen              ) -- Cycle monitor focus.
-  , ((myModMask, xK_F11      ), sendMessage NextLayout  ) -- Cycle layout. 
-  , ((myModMask, xK_F12      ), sendMessage ToggleStruts) -- Toggle bar hide | show.
+  , ((myModMask, xK_s        ), sendMessage ToggleStruts) -- Toggle bar hide | show.
   -- Window Navigation.
   , ((myModMask, xK_h        ), sendMessage $ Go L     ) -- Move focus left. 
   , ((myModMask, xK_j        ), sendMessage $ Go D     ) -- Move focus down.
@@ -108,14 +109,18 @@ myConfig = def
   , ((myModMask, xK_F2), windows $ W.view "Discord"  ) -- Open discord workspace.
   , ((myModMask, xK_F3), windows $ W.view "Firefox"  ) -- Open Firefox workspace.
   , ((myModMask, xK_F4), windows $ W.view "Steam"    ) -- Open Steam workspace.
+  -- Jump to Layouts.
+  , ((myModMask, xK_F9 ), sendMessage $ JumpToLayout "bsp")
+  , ((myModMask, xK_F12), sendMessage $ JumpToLayout "full")
   ]
   
 -- The Layout Hook.
-myLayoutHook = (myModifier emptyBSP ||| avoidStruts Full)
+myLayoutHook = avoidStruts $
+    renamed [Replace "bsp"] (myModifier emptyBSP) |||
+    renamed [Replace "full"] (Full)
   where
-    myModifier = avoidStruts . myDecorate . myGaps . windowNavigation
-       where
-         myGaps = spacingRaw True (Border 40 40 40 40) True (Border 10 10 10 10) True
+    myModifier = myDecorate . myGaps . windowNavigation
+    myGaps = spacingRaw True (Border 40 40 40 40) True (Border 10 10 10 10) True
 
 -- The Manage Hook.
 myManageHook = manageDocks
