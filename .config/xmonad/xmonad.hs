@@ -69,7 +69,7 @@ myConfig = def
   , ((myModMask, xK_Down ), sendMessage $ Go D)
   , ((myModMask, xK_Left ), sendMessage $ Go L)
   , ((myModMask, xK_Right), sendMessage $ Go R)
-  -- Workspace Navigation.
+  -- Workspace Navigation. (Move to workspace)
   , ((myModMask, xK_KP_End      ), windows $ W.view "1") -- Numpad 1
   , ((myModMask, xK_KP_Down     ), windows $ W.view "2") -- Numpad 2
   , ((myModMask, xK_KP_Page_Down), windows $ W.view "3") -- Numpad 3
@@ -79,16 +79,26 @@ myConfig = def
   , ((myModMask, xK_KP_Home     ), windows $ W.view "7") -- Numpad 7
   , ((myModMask, xK_KP_Up       ), windows $ W.view "8") -- Numpad 8
   , ((myModMask, xK_KP_Page_Up  ), windows $ W.view "9") -- Numpad 9
+  -- Workspace Navigation. (Move window to workspace)
+  , ((myModMask .|. shiftMask, xK_KP_End      ), windows $ W.shift "1") -- Numpad 1
+  , ((myModMask .|. shiftMask, xK_KP_Down     ), windows $ W.shift "2") -- Numpad 2
+  , ((myModMask .|. shiftMask, xK_KP_Page_Down), windows $ W.shift "3") -- Numpad 3
+  , ((myModMask .|. shiftMask, xK_KP_Left     ), windows $ W.shift "4") -- Numpad 4
+  , ((myModMask .|. shiftMask, xK_KP_Begin    ), windows $ W.shift "5") -- Numpad 5
+  , ((myModMask .|. shiftMask, xK_KP_Right    ), windows $ W.shift "6") -- Numpad 6
+  , ((myModMask .|. shiftMask, xK_KP_Home     ), windows $ W.shift "7") -- Numpad 7
+  , ((myModMask .|. shiftMask, xK_KP_Up       ), windows $ W.shift "8") -- Numpad 8
+  , ((myModMask .|. shiftMask, xK_KP_Page_Up  ), windows $ W.shift "9") -- Numpad 9
   -- Window Swapping.
   , ((myModMask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
   , ((myModMask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
   , ((myModMask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
   , ((myModMask .|. shiftMask, xK_Right), sendMessage $ Swap R)
   -- Binary Space Partition.
-  , ((myModMask .|. controlMask, xK_Up       ), sendMessage $ ExpandTowards U)
-  , ((myModMask .|. controlMask, xK_Down     ), sendMessage $ ExpandTowards D)
-  , ((myModMask .|. controlMask, xK_Left     ), sendMessage $ ExpandTowards L)
-  , ((myModMask .|. controlMask, xK_Right    ), sendMessage $ ExpandTowards R)
+  , ((myModMask .|. controlMask, xK_Up   ), sendMessage $ ExpandTowards U)
+  , ((myModMask .|. controlMask, xK_Down ), sendMessage $ ExpandTowards D)
+  , ((myModMask .|. controlMask, xK_Left ), sendMessage $ ExpandTowards L)
+  , ((myModMask .|. controlMask, xK_Right), sendMessage $ ExpandTowards R)
   ]
   
 -- The Layout Hook.
