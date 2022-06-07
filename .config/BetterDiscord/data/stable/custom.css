@@ -1,0 +1,56 @@
+/* Default Font */
+:root {
+    --font-primary: FiraCode Nerd Font;
+}
+
+/* Main Theme */
+.theme-dark {
+    --background-primary: #1d2021;          /* Message Window   */
+    --background-secondary: #282828;        /* Sidebar          */
+    --background-secondary-alt: #282828;    /* Name             */
+    --background-tertiary: #904b5b;         /* Misc Crap        */
+    --scrollbar-auto-thumb: #904b5b;        /* Scrollbar Accent */
+}
+
+/* Message Box */
+.scrollableContainer-15eg7h{
+    background-color: #1d2021;
+}
+
+/* Friends List */
+.peopleColumn-29fq28 {
+    background: #1d2021;
+}
+
+/* Unread Bar */
+.newMessagesBar-265mhP{
+    background: #904b5b;
+}
+
+/* Search Bar */
+.searchBar-jGtisZ{
+    background: #1d2021;
+}
+
+/* Nuke Server Banners */
+.animatedContainer-1NSq4T, .content-3YMskv [style="height: 84px;"], .bannerImage-3KhIJ6{
+    display: none;
+}
+.hasBanner-2SrLR3 .header-2V-4Sw, .hasBanner-2SrLR3 .header-2V-4Sw:hover{
+    color: var(--header-primary);
+    box-shadow: var(--elevation-low)
+}
+.iconTierOne-s_oiRb, .iconTierTwo-1JOWNK {
+    color: var(--text-muted);
+}
+
+/* True Block User Behaviour*/
+div[class^="container-"]{ min-height: 0; }
+div[class^="blockedSystemMessage-"], div[class*="blockedSystemMessage-"] { 
+    
+    display: none; 
+}
+
+div[class^="groupStart-"], div[class^="da-groupStart"] {
+    display: none;
+}
