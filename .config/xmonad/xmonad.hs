@@ -16,10 +16,10 @@ import XMonad.Util.EZConfig                             -- Keybinding Configurat
 import XMonad.Util.SpawnOnce                            -- Spawn Program Once on Startup.
 -- Layouts.
 import XMonad.Layout.Spacing                            -- Add gaps between windows.
-import XMonad.Layout.WindowNavigation                   -- Allows easy navigation of a workspace.
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- Split the focused window in half, based off of BSPWM.
 import XMonad.Layout.Renamed                            -- Modify the description of a layout.
 import XMonad.Layout.LayoutCombinators                  -- Combine multiple layouts into one composite layout.
+import XMonad.Layout.PerWorkspace                       -- Configure layouts on a per-workspace basis.
 -- Hooks.
 import XMonad.Hooks.EwmhDesktops                        -- Tell panel applications about its workspaces and the windows there in.
 import XMonad.Hooks.ManageDocks                         -- Tools to automatically manage dock type programs.
@@ -114,11 +114,17 @@ myConfig = def
   ]
   
 -- The Layout Hook.
-myLayoutHook = avoidStruts $
-    renamed [Replace "bsp"] (myModifier emptyBSP) |||
-    renamed [Replace "full"] (Full)
+myLayoutHook = avoidStruts -- Avoid covering our bars, can be toggled <alt> + <s>.
+    -- Set appropriate layout for dedicated workspaces.
+    $ onWorkspaces ["Developer", "Discord"] (myBSP)
+    $ onWorkspaces ["Firefox", "Steam"] (Full)
+    -- All other workspaces start as a pre decorated bsp with the option to fullscreen.
+    -- We rename them for easy identification when calling 'JumpToLayout'.
+    $ renamed [Replace "bsp"] (myBSP) ||| renamed [Replace "full"] (Full)
   where
-    myModifier = myDecorate . myGaps . windowNavigation
+    -- Our pretty default layout.
+    myBSP = myDecorate . myGaps $ emptyBSP
+    -- The configuration for our gaps.
     myGaps = spacingRaw True (Border 40 40 40 40) True (Border 10 10 10 10) True
 
 -- The Manage Hook.
