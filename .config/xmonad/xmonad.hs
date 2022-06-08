@@ -43,7 +43,7 @@ main = do
 myModMask     = mod1Mask
 myTerminal    = "st -e tmux"
 myBorderWidth = 0
-myWorkspaces  = ["1","2","3","4","5","6","7","8","9","Developer","Discord","Firefox","Steam"]
+myWorkspaces  = ["1","2","3","4","5","6","7","8","9","Dev","Media","Web","Games"]
             
 -- The Main Configuration.
 myConfig = def
@@ -102,10 +102,10 @@ myConfig = def
   , ((myModMask .|. shiftMask, xK_8), windows $ W.shift "8") -- Move to ws8
   , ((myModMask .|. shiftMask, xK_9), windows $ W.shift "9") -- Move to ws9
   -- Dedicated Workspaces.
-  , ((myModMask, xK_F1), windows $ W.view "Developer") -- Open developer workspace.
-  , ((myModMask, xK_F2), windows $ W.view "Discord"  ) -- Open discord workspace.
-  , ((myModMask, xK_F3), windows $ W.view "Firefox"  ) -- Open Firefox workspace.
-  , ((myModMask, xK_F4), windows $ W.view "Steam"    ) -- Open Steam workspace.
+  , ((myModMask, xK_F1), windows $ W.view "Dev"  ) -- Open developer workspace.
+  , ((myModMask, xK_F2), windows $ W.view "Media") -- Open discord workspace.
+  , ((myModMask, xK_F3), windows $ W.view "Web"  ) -- Open Firefox workspace.
+  , ((myModMask, xK_F4), windows $ W.view "Games") -- Open Steam workspace.
   -- Jump to Layouts.
   , ((myModMask, xK_F5), sendMessage $ JumpToLayout "bsp" ) -- Open bsp layout.
   , ((myModMask, xK_F8), sendMessage $ JumpToLayout "full") -- Open full layout.
@@ -116,8 +116,8 @@ myConfig = def
 -- The Layout Hook.
 myLayoutHook = avoidStruts -- Avoid covering our bars, can be toggled <alt> + <s>.
     -- Set appropriate layout for dedicated workspaces.
-    $ onWorkspaces ["Developer", "Discord"] (myBSP)
-    $ onWorkspaces ["Firefox", "Steam"] (Full)
+    $ onWorkspaces ["Dev", "Media"] (myBSP)
+    $ onWorkspaces ["Web", "Games"] (Full)
     -- All other workspaces start as a pre decorated bsp with the option to fullscreen.
     -- We rename them for easy identification when calling 'JumpToLayout'.
     $ renamed [Replace "bsp"] (myBSP) ||| renamed [Replace "full"] (Full)
