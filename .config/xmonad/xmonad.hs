@@ -1,6 +1,6 @@
 --------------------------------
 -- Author: minnie             --
--- Server: fuhchsia.kanto.dev --
+-- Server: fuchsia.kanto.dev  --
 --------------------------------
 
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
@@ -19,7 +19,7 @@ import XMonad.Layout.Spacing                            -- Add gaps between wind
 import XMonad.Layout.WindowNavigation                   -- Allows easy navigation of a workspace.
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- Split the focused window in half, based off of BSPWM.
 import XMonad.Layout.Renamed                            -- Modify the description of a layout.
-import XMonad.Layout.LayoutCombinators
+import XMonad.Layout.LayoutCombinators                  -- Combine multiple layouts into one composite layout.
 -- Hooks.
 import XMonad.Hooks.EwmhDesktops                        -- Tell panel applications about its workspaces and the windows there in.
 import XMonad.Hooks.ManageDocks                         -- Tools to automatically manage dock type programs.
@@ -60,25 +60,22 @@ myConfig = def
 
   -- The Keybinding Configuration.
   `additionalKeys`
+  -- Holy Trinity.
+  [ ((myModMask, xK_Return), spawn $ myTerminal) -- Open the terminal.
+  , ((myModMask, xK_Delete), kill              ) -- Kill the focused program.
+  , ((myModMask, xK_slash ), spawn "dmenu_run" ) -- Open application launcher.
   -- Miscellaneous Binds.
-  [ ((myModMask, xK_Return   ), spawn $ myTerminal      ) -- Open the terminal.
-  , ((myModMask, xK_Delete   ), kill                    ) -- Kill the focused program.
-  , ((myModMask, xK_BackSpace), spawn "dmenu_run"       ) -- Open application launcher.
-  , ((myModMask, xK_q        ), sendMessage $ Rotate    ) -- Rotate layout horizontal | vertical.
-  , ((myModMask, xK_Tab      ), nextScreen              ) -- Cycle monitor focus.
-  , ((myModMask, xK_s        ), sendMessage ToggleStruts) -- Toggle bar hide | show.
+  , ((myModMask, xK_Tab), nextScreen              ) -- Cycle monitor focus.
+  , ((myModMask, xK_q  ), sendMessage Rotate      ) -- Rotate layout horizontal | vertical.
+  , ((myModMask, xK_s  ), sendMessage ToggleStruts) -- Toggle bar hide | show.
   -- Window Navigation.
-  , ((myModMask, xK_h        ), sendMessage $ Go L     ) -- Move focus left. 
-  , ((myModMask, xK_j        ), sendMessage $ Go D     ) -- Move focus down.
-  , ((myModMask, xK_k        ), sendMessage $ Go U     ) -- Move focus up.
-  , ((myModMask, xK_l        ), sendMessage $ Go R     ) -- Move focus right.
-  , ((myModMask, xK_backslash), windows $ W.focusMaster) -- Move focus to master.
+  , ((myModMask, xK_j), windows W.focusDown  ) -- Move focus to next window.
+  , ((myModMask, xK_k), windows W.focusUp    ) -- Move focus to previous window.
+  , ((myModMask, xK_m), windows W.focusMaster) -- Move focus to master.
   -- Window Swapping.
-  , ((myModMask .|. shiftMask, xK_h        ), sendMessage $ Swap L  ) -- Move window left.
-  , ((myModMask .|. shiftMask, xK_j        ), sendMessage $ Swap D  ) -- Move window down.
-  , ((myModMask .|. shiftMask, xK_k        ), sendMessage $ Swap U  ) -- Move window up.
-  , ((myModMask .|. shiftMask, xK_l        ), sendMessage $ Swap R  ) -- Move window right.
-  , ((myModMask .|. shiftMask, xK_backslash), windows $ W.swapMaster) -- Move window to master.
+  , ((myModMask .|. shiftMask, xK_j), windows W.swapDown  ) -- Swap with the next window.
+  , ((myModMask .|. shiftMask, xK_k), windows W.swapUp    ) -- Swap with the previous window.
+  , ((myModMask .|. shiftMask, xK_m), windows W.swapMaster) -- Swap with the master window.
   -- Binary Space Partition.
   , ((myModMask .|. controlMask, xK_h), sendMessage $ ExpandTowards L) -- Expand window left.
   , ((myModMask .|. controlMask, xK_j), sendMessage $ ExpandTowards D) -- Expand window down.
@@ -110,8 +107,10 @@ myConfig = def
   , ((myModMask, xK_F3), windows $ W.view "Firefox"  ) -- Open Firefox workspace.
   , ((myModMask, xK_F4), windows $ W.view "Steam"    ) -- Open Steam workspace.
   -- Jump to Layouts.
-  , ((myModMask, xK_F9 ), sendMessage $ JumpToLayout "bsp")
-  , ((myModMask, xK_F12), sendMessage $ JumpToLayout "full")
+  , ((myModMask, xK_F5), sendMessage $ JumpToLayout "bsp" ) -- Open bsp layout.
+  , ((myModMask, xK_F8), sendMessage $ JumpToLayout "full") -- Open full layout.
+  -- Fkey Miscellaneous.
+  , ((myModMask, xK_F12), spawn "xmonad --recompile; xmonad --restart") -- Recompile then restart xmonad.
   ]
   
 -- The Layout Hook.
@@ -128,11 +127,11 @@ myManageHook = manageDocks
 -- My Wild Rose Theme.
 myTheme :: Theme
 myTheme = def
-  { activeColor         = "#904b5b"
-  , inactiveColor       = "#444c42"
-  , activeBorderColor   = "#904b5b"
-  , inactiveBorderColor = "#444c42"
-  , decoWidth           = 20
+  { activeColor         = "#904b5b" -- Red
+  , inactiveColor       = "#444c42" -- Green
+  , activeBorderColor   = "#904b5b" -- Red
+  , inactiveBorderColor = "#444c42" -- Green
+  , decoWidth           = 20        -- Sidebar <px>
   }
 
 -- The Decoration Style.
