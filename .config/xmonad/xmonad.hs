@@ -32,7 +32,6 @@ import XMonad.Util.Types                                -- Miscellaneous commonl
 -- The Startup Hook.
 myStartupHook = do
   spawnOnce "xrandr --output HDMI-A-0 --mode 1920x1080 --rotate left --output DisplayPort-0 --mode 2560x1440 --right-of HDMI-A-0"
-  spawnOnce "xdotool key Num_Lock"
   spawnOnce "~/.fehbg"
 
 -- The Main Function.
