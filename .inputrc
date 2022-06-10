@@ -1,7 +1,7 @@
-# display all possible matches for an ambiguous pattern at first tab
+# Bash completion configuration.
+# Display all possible matches for an ambiguous pattern at first tab
 set show-all-if-ambiguous on
-
-# next tab(s) will cycle through matches
+# Next tab(s) will cycle through matches
 TAB: menu-complete
-# shift tab cycles backward
+# Shift tab cycles backward
 "\e[Z": menu-complete-backward
