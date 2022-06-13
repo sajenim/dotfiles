@@ -109,7 +109,7 @@ myConfig = def
   , ((myModMask, xK_F5), sendMessage $ JumpToLayout "bsp" ) -- Open bsp layout.
   , ((myModMask, xK_F8), sendMessage $ JumpToLayout "full") -- Open full layout.
   -- Fkey Miscellaneous.
-  , ((myModMask, xK_F12), spawn "xmonad --recompile; xmonad --restart") -- Recompile then restart xmonad.
+  , ((myModMask, xK_F12), spawn "systemctl suspend") -- Put computer to sleep
   ]
   
 -- The Layout Hook.
