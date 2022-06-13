@@ -1,5 +1,7 @@
 require('settings')
 require('plugins')
+require('statusline')
+require('nvim-tree').setup {}
 
 -- Enable gruvbox colorscheme.
 vim.cmd([[colorscheme gruvbox]])

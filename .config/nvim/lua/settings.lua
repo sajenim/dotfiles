@@ -11,7 +11,7 @@ vim.opt.expandtab = true                -- In Insert mode: Use the appropriate n
 vim.opt.smartindent = true              -- Do smart autoindenting when starting a new line.
 
 -- Keybindings.
-vim.keymap.set('n', '<leader>t', ':NERDTreeToggle<cr>')
+vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<cr>')
 --Go to tab by number
 vim.keymap.set('n', '<leader>1', '1gt')
 vim.keymap.set('n', '<leader>2', '2gt')
@@ -23,35 +23,6 @@ vim.keymap.set('n', '<leader>7', '7gt')
 vim.keymap.set('n', '<leader>8', '8gt')
 vim.keymap.set('n', '<leader>9', '9gt')
 vim.keymap.set('n', '<leader>0', ':tablast<cr>')
--- Find files using Telescope command-line sugar.
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files hidden=true<cr>')
-vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
-vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
-
--- Airline Configuration.
-vim.g.airline_powerline_fonts = 1
-vim.g['airline#extensions#tabline#enabled'] = 1
-
--- NerdTree Configuration.
-vim.g.NERDTreeDirArrowExpandable = '->'
-vim.g.NERDTreeDirArrowCollapsible = '<-'
--- Start NERDTree and put the cursor back in the other window.
-vim.api.nvim_create_autocmd({"VimEnter"}, {
-  command = "NERDTree | wincmd p"
-})
--- Open the existing NERDTree on each new tab.
-vim.api.nvim_create_autocmd({"BufWinEnter"}, {
-  command = "if getcmdwintype() == '' | silent NERDTreeMirror | endif",
-})
--- Close the tab if NERDTree is the only window remaining in it.
-vim.api.nvim_create_autocmd({"BufEnter"}, {
-  command = "if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif",
-})
--- Exit Vim if NERDTree is the only window remaining in the only tab.
-vim.api.nvim_create_autocmd({"BufEnter"}, {
-  command = "if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif",
-})
 
 -- Gruvbox Configuration.
 vim.opt.background = 'dark'             -- Enable "dark" or "light" mode.

@@ -1,38 +1,29 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 return require('packer').startup(function(use)
-  -- Packer can manage itself
+  -- Packer can manage itself.
   use 'wbthomason/packer.nvim'
   
-  -- Designed as a bright theme with pastel 'retro groove' colors and light/dark mode switching.
-  -- The main focus when developing gruvbox is to keep colors easily distinguishable, contrast enough and still pleasant for the eyes.
-  use 'morhetz/gruvbox'
-  
-  -- Lean & mean status/tabline for vim that's light as air.
+  -- A port of gruvbox community theme to lua with treesitter support!
+  use 'ellisonleao/gruvbox.nvim'
+
+  -- A minimal, stylish and customizable statusline / winbar for Neovim written in Lua
   use {
-    'vim-airline/vim-airline',
-    requires = 'ryanoasis/vim-devicons'
+    'feline-nvim/feline.nvim',
+    requires = {'kyazdani42/nvim-web-devicons'}
   }
 
-  -- The NERDTree is a file system explorer for the Vim editor.
+  -- A File Explorer For Neovim Written In Lua.
   use {
-    'preservim/nerdtree',
-    requires = 'ryanoasis/vim-devicons'
+    'kyazdani42/nvim-tree.lua',
+    requires = {'kyazdani42/nvim-web-devicons'},
   }
 
   -- Start screen for Vim and Neovim.
   use 'mhinz/vim-startify'
 
-  -- Highly extendable fuzzy finder over lists.
-  use {
-  'nvim-telescope/telescope.nvim',
-  requires = 'nvim-lua/plenary.nvim'
-  }
-
   -- Smart and Powerful commenting plugin for neovim.
   use {
     'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
+    config = function() require('Comment').setup() end
   }
 end)
