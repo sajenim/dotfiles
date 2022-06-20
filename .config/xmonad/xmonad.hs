@@ -14,6 +14,7 @@ import XMonad.Actions.CycleWS                           -- Bindings to cycle bet
 -- Utililities.
 import XMonad.Util.EZConfig                             -- Keybinding Configuration.
 import XMonad.Util.SpawnOnce                            -- Spawn Program Once on Startup.
+import XMonad.Util.Loggers
 -- Layouts.
 import XMonad.Layout.Spacing                            -- Add gaps between windows.
 import XMonad.Layout.BinarySpacePartition hiding (Swap) -- Split the focused window in half, based off of BSPWM.
@@ -23,6 +24,9 @@ import XMonad.Layout.PerWorkspace                       -- Configure layouts on 
 -- Hooks.
 import XMonad.Hooks.EwmhDesktops                        -- Tell panel applications about its workspaces and the windows there in.
 import XMonad.Hooks.ManageDocks                         -- Tools to automatically manage dock type programs.
+import XMonad.Hooks.DynamicLog                          -- Output status information to an external status bar program such as xmobar.
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.ManageHelpers                       -- Provides helper functions to be used in manageHook.
 -- Required for DecorationStyle. 
 import qualified XMonad.StackSet as W                   -- Encodes a window manager abstraction.
@@ -35,14 +39,24 @@ myStartupHook = do
   spawnOnce "~/.fehbg"
 
 -- The Main Function.
-main = do
-  xmonad $ ewmhFullscreen . ewmh . docks $ myConfig
+main :: IO ()
+main = xmonad
+     . ewmhFullscreen
+     . ewmh
+     . withEasySB (statusBarProp "xmobar ~/.config/xmobar/xmobarrc" (pure myXmobarPP)) defToggleStrutsKey
+     $ myConfig
 
 -- My Default Options.
 myModMask     = mod1Mask
 myTerminal    = "st -e tmux"
 myBorderWidth = 0
-myWorkspaces  = ["1","2","3","4","5","6","7","8","9","Dev","Media","Web","Games"]
+-- Define our workspace names here.
+myWorkspaces  = 
+  -- Default Misc Workspaces.
+  ["1","2","3","4","5","6","7","8","9"
+  -- Extra Dedicated Workspaces.
+  ,"Dev","Media","Web","Games"
+  ]
             
 -- The Main Configuration.
 myConfig = def
@@ -53,7 +67,7 @@ myConfig = def
   , workspaces  = myWorkspaces
   -- myHooks
   , startupHook = myStartupHook
-  , manageHook  = myManageHook
+  , manageHook  = manageDocks
   , layoutHook  = myLayoutHook
   }
 
@@ -126,9 +140,6 @@ myLayoutHook = avoidStruts -- Avoid covering our bars, can be toggled <alt> + <s
     -- The configuration for our gaps.
     myGaps = spacingRaw True (Border 40 40 40 40) True (Border 10 10 10 10) True
 
--- The Manage Hook.
-myManageHook = manageDocks
-
 -- My Wild Rose Theme.
 myTheme :: Theme
 myTheme = def
@@ -161,3 +172,32 @@ instance Eq a => DecorationStyle SideDecoration a where
       SideDecoration D -> Rectangle x (y + fi (h - dh)) w dh
       SideDecoration L -> Rectangle x y dw h
     | otherwise = Nothing
+
+-- Xmobar Pretty Printing.
+myXmobarPP :: PP
+myXmobarPP = def
+    { ppSep             = magenta " • "
+    , ppTitleSanitize   = xmobarStrip
+    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
+    , ppHidden          = white . wrap " " ""
+    , ppHiddenNoWindows = lowWhite . wrap " " ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
+    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    }
+  where
+    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+
+    -- | Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor "#ff79c6" ""
+    blue     = xmobarColor "#bd93f9" ""
+    white    = xmobarColor "#f8f8f2" ""
+    yellow   = xmobarColor "#f1fa8c" ""
+    red      = xmobarColor "#ff5555" ""
+    lowWhite = xmobarColor "#bbbbbb" ""
