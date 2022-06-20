@@ -33,11 +33,6 @@ import qualified XMonad.StackSet as W                   -- Encodes a window mana
 import XMonad.Layout.Decoration                         -- Creating decorated layouts.
 import XMonad.Util.Types                                -- Miscellaneous commonly used types.
 
--- The Startup Hook.
-myStartupHook = do
-  spawnOnce "xrandr --output HDMI-A-0 --mode 1920x1080 --rotate left --output DisplayPort-0 --mode 2560x1440 --right-of HDMI-A-0"
-  spawnOnce "~/.fehbg"
-
 -- The Main Function.
 main :: IO ()
 main = xmonad
@@ -66,8 +61,7 @@ myConfig = def
   , borderWidth = myBorderWidth
   , workspaces  = myWorkspaces
   -- myHooks
-  , startupHook = myStartupHook
-  , manageHook  = manageDocks
+  , manageHook  = myManageHook
   , layoutHook  = myLayoutHook
   }
 
@@ -121,33 +115,32 @@ myConfig = def
   , ((myModMask, xK_F4), windows $ W.view "Games") -- Open Steam workspace.
   -- Jump to Layouts.
   , ((myModMask, xK_F5), sendMessage $ JumpToLayout "bsp" ) -- Open bsp layout.
-  , ((myModMask, xK_F8), sendMessage $ JumpToLayout "full") -- Open full layout.
+  , ((myModMask, xK_F8), sendMessage $ JumpToLayout "Full") -- Open full layout.
   -- Fkey Miscellaneous.
   , ((myModMask, xK_F12), spawn "systemctl suspend") -- Put computer to sleep
   ]
-  
+
+-- The Manage Hook.
+myManageHook :: ManageHook
+myManageHook = composeAll
+  [ isDialog  --> doFloat ]
+
 -- The Layout Hook.
-myLayoutHook = avoidStruts -- Avoid covering our bars, can be toggled <alt> + <s>.
-    -- Set appropriate layout for dedicated workspaces.
-    $ onWorkspaces ["Dev", "Media"] (myBSP)
-    $ onWorkspaces ["Web", "Games"] (Full)
-    -- All other workspaces start as a pre decorated bsp with the option to fullscreen.
-    -- We rename them for easy identification when calling 'JumpToLayout'.
-    $ renamed [Replace "bsp"] (myBSP) ||| renamed [Replace "full"] (Full)
+myLayoutHook = myBSP ||| Full
   where
     -- Our pretty default layout.
-    myBSP = myDecorate . myGaps $ emptyBSP
+    myBSP = renamed [Replace "bsp"] . myDecorate . myGaps $ emptyBSP
     -- The configuration for our gaps.
     myGaps = spacingRaw True (Border 40 40 40 40) True (Border 10 10 10 10) True
 
 -- My Wild Rose Theme.
 myTheme :: Theme
 myTheme = def
-  { activeColor         = "#904b5b" -- Red
-  , inactiveColor       = "#444c42" -- Green
-  , activeBorderColor   = "#904b5b" -- Red
-  , inactiveBorderColor = "#444c42" -- Green
-  , decoWidth           = 20        -- Sidebar <px>
+  { activeColor         = "#904b5b"
+  , inactiveColor       = "#444c42"
+  , activeBorderColor   = "#904b5b"
+  , inactiveBorderColor = "#444c42"
+  , decoWidth           = 20
   }
 
 -- The Decoration Style.
