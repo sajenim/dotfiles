@@ -10,5 +10,8 @@ export EDITOR=nvim
 # Enable vi mode.
 set -o vi
 
+# Set our aliases.
+alias cava="TERM=st-256color cava"
+
 # Prompt customization.
 PS1="\[\e[0;35m\][ \[\e[0;3m\]\u\[\e[0;3m\]@\[\e[0;3m\]\H\[\e[0;35m\] ] [ \[\e[0m\]\w\[\e[0;35m\] ] \[\e[0m\]"
