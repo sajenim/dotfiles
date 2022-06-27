@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Enable numpad.
+numlockx &
+
 # Setup our monitors.
 xrandr --output HDMI-A-0 --mode 1920x1080 --rotate left --output DisplayPort-0 --mode 2560x1440 --right-of HDMI-A-0 &
 
