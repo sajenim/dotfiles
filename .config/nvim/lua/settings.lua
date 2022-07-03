@@ -22,10 +22,11 @@ vim.keymap.set('n', '<leader>7', '7gt')
 vim.keymap.set('n', '<leader>8', '8gt')
 vim.keymap.set('n', '<leader>9', '9gt')
 vim.keymap.set('n', '<leader>0', ':tablast<cr>')
+-- Miscellaneous.
+vim.keymap.set('n', '<leader>t', ':NERDTreeToggle<cr>')
 
 -- Gruvbox Configuration.
 vim.opt.background = 'dark'             -- Enable "dark" or "light" mode.
-
 vim.g.gruvbox_bold = 1                  -- Enables bold text.
 vim.g.gruvbox_italic = 1                -- Enables italic text.
 vim.g.gruvbox_underline = 1             -- Enables underlined text.

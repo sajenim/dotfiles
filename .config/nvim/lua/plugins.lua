@@ -8,4 +8,10 @@ return require('packer').startup(function(use)
 
   -- Start screen.
   use 'mhinz/vim-startify'
+
+  -- File system explorer.
+  use {
+    'preservim/nerdtree',
+    requires = 'ryanoasis/vim-devicons',
+  }
 end)
