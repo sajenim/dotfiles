@@ -1,10 +1,12 @@
-require('settings')
+-- Imports.
 require('plugins')
-require('statusline')
-require('nvim-tree').setup {}
+require('settings')
 
--- Enable gruvbox colorscheme.
-vim.cmd([[colorscheme gruvbox]])
+-- Setup Plugins.
+
+-- Set the colorscheme.
+vim.cmd("colorscheme gruvbox")
+
 -- Automatically run :PackerCompile whenever plugins.lua is updated.
 vim.cmd([[
   augroup packer_user_config

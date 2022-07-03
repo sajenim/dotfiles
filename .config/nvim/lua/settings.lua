@@ -11,8 +11,7 @@ vim.opt.expandtab = true                -- In Insert mode: Use the appropriate n
 vim.opt.smartindent = true              -- Do smart autoindenting when starting a new line.
 
 -- Keybindings.
-vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<cr>')
---Go to tab by number
+-- Go to tab by number.
 vim.keymap.set('n', '<leader>1', '1gt')
 vim.keymap.set('n', '<leader>2', '2gt')
 vim.keymap.set('n', '<leader>3', '3gt')
@@ -26,15 +25,16 @@ vim.keymap.set('n', '<leader>0', ':tablast<cr>')
 
 -- Gruvbox Configuration.
 vim.opt.background = 'dark'             -- Enable "dark" or "light" mode.
+
 vim.g.gruvbox_bold = 1                  -- Enables bold text.
 vim.g.gruvbox_italic = 1                -- Enables italic text.
-vim.g.gruvbox_transparent_bg = 0        -- Enables transparent background.
 vim.g.gruvbox_underline = 1             -- Enables underlined text.
 vim.g.gruvbox_undercurl = 1             -- Enables undercurled text.
 vim.g.gruvbox_termcolors = 256          -- Uses 256-color palette.
 vim.g.gruvbox_contrast_dark = 'hard'    -- Changes dark mode contrast. Possible values are soft, medium and hard.
 vim.g.gruvbox_contrast_light = 'hard'   -- Changes light mode contrast. Possible values are soft, medium and hard.
 vim.g.gruvbox_hls_cursor = 'orange'     -- Changes cursor background while search is highlighted. Possible values are any of gruvbox palette.
+vim.g.gruvbox_hls_highlight = 'yellow'  -- Changes search highlight color foreground. Possible values are any of gruvbox palette.
 vim.g.gruvbox_number_column = 'bg0'     -- Changes number column background color. Possible values are any of gruvbox palette.
 vim.g.gruvbox_sign_column = 'bg1'       -- Changes sign column background color. Possible values are any of gruvbox palette.
 vim.g.gruvbox_color_column = 'bg1'      -- Changes color column background color. Possible values are any of gruvbox palette.
@@ -45,3 +45,6 @@ vim.g.gruvbox_invert_selection = 1      -- Inverts selected text.
 vim.g.gruvbox_invert_signs = 0          -- Inverts GitGutter and Syntastic signs. Useful to rapidly focus on.
 vim.g.gruvbox_invert_indent_guides = 0  -- Inverts indent guides.
 vim.g.gruvbox_invert_tabline = 0        -- Inverts tabline highlights, providing distinguishable tabline-fill.
+vim.g.gruvbox_improved_strings = 0      -- Extrahighlighted strings.
+vim.g.gruvbox_improved_warnings = 0     -- Extrahighlighted warnings.
+vim.g.gruvbox_guisp_fallback = 'NONE'   -- Delegates guisp colorings to guifg or guibg.
