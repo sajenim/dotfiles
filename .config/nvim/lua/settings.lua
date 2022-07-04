@@ -3,6 +3,7 @@ vim.opt.number = true                   -- Print the line number in front of eac
 vim.opt.showmode = false                -- If in Insert, Replace or Visual mode put a message on the last line.
 vim.opt.termguicolors = true            -- Enables 24-bit RGB color in the TUI. 
 vim.opt.mouse = 'a'                     -- Enable the use of the mouse.
+vim.opt.updatetime = 100                -- Controls the delay before vim writes its swap file.
 
 -- Indentation Configuartion.
 vim.opt.tabstop = 2                     -- Number of spaces that a <Tab> in the file counts for.
@@ -11,6 +12,7 @@ vim.opt.expandtab = true                -- In Insert mode: Use the appropriate n
 vim.opt.smartindent = true              -- Do smart autoindenting when starting a new line.
 
 -- Keybindings.
+vim.keymap.set('n', '<leader>t', ':NERDTreeToggle<cr>')
 -- Go to tab by number.
 vim.keymap.set('n', '<leader>1', '1gt')
 vim.keymap.set('n', '<leader>2', '2gt')
@@ -22,11 +24,13 @@ vim.keymap.set('n', '<leader>7', '7gt')
 vim.keymap.set('n', '<leader>8', '8gt')
 vim.keymap.set('n', '<leader>9', '9gt')
 vim.keymap.set('n', '<leader>0', ':tablast<cr>')
--- Miscellaneous.
-vim.keymap.set('n', '<leader>t', ':NERDTreeToggle<cr>')
 
--- Gruvbox Configuration.
+-- Airline configuration.
+vim.g.airline_powerline_fonts = 1
+
+-- Select gruvbox mode.
 vim.opt.background = 'dark'             -- Enable "dark" or "light" mode.
+-- General gruvbox configuration.
 vim.g.gruvbox_bold = 1                  -- Enables bold text.
 vim.g.gruvbox_italic = 1                -- Enables italic text.
 vim.g.gruvbox_underline = 1             -- Enables underlined text.
@@ -37,7 +41,7 @@ vim.g.gruvbox_contrast_light = 'hard'   -- Changes light mode contrast. Possible
 vim.g.gruvbox_hls_cursor = 'orange'     -- Changes cursor background while search is highlighted. Possible values are any of gruvbox palette.
 vim.g.gruvbox_hls_highlight = 'yellow'  -- Changes search highlight color foreground. Possible values are any of gruvbox palette.
 vim.g.gruvbox_number_column = 'bg0'     -- Changes number column background color. Possible values are any of gruvbox palette.
-vim.g.gruvbox_sign_column = 'bg1'       -- Changes sign column background color. Possible values are any of gruvbox palette.
+vim.g.gruvbox_sign_column = 'bg0'       -- Changes sign column background color. Possible values are any of gruvbox palette.
 vim.g.gruvbox_color_column = 'bg1'      -- Changes color column background color. Possible values are any of gruvbox palette.
 vim.g.gruvbox_vert_split = 'bg0'        -- Changes vertical split background color. Possible values are any of gruvbox palette.
 vim.g.gruvbox_italicize_comments = 1    -- Enables italic for comments.

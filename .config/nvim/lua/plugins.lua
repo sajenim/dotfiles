@@ -12,6 +12,17 @@ return require('packer').startup(function(use)
   -- File system explorer.
   use {
     'preservim/nerdtree',
-    requires = 'ryanoasis/vim-devicons',
+    requires = 'ryanoasis/vim-devicons'
   }
+ 
+  -- Lean & mean status/tabline.
+  use 'vim-airline/vim-airline'
+
+  -- Git Integrations.
+  -- Fugitive is the premier Vim plugin for Git.
+  use 'tpope/vim-fugitive'
+  -- Shows a git diff in the sign column.
+  use 'airblade/vim-gitgutter'
+  -- Integrates yadm with vim-fugitive and vim-gitgutter.
+  use 'seanbreckenridge/yadm-git.vim'
 end)
