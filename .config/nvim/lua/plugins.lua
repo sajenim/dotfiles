@@ -17,6 +17,8 @@ return require('packer').startup(function(use)
  
   -- Lean & mean status/tabline.
   use 'vim-airline/vim-airline'
+  -- Tmux statusline generator.
+  use 'edkolev/tmuxline.vim'
 
   -- Git Integrations.
   -- Fugitive is the premier Vim plugin for Git.
