@@ -71,6 +71,9 @@ myKeys =
   , ((myModMask, xK_j), windows W.focusDown  ) -- Move focus to next window.
   , ((myModMask, xK_k), windows W.focusUp    ) -- Move focus to previous window.
   , ((myModMask, xK_m), windows W.focusMaster) -- Move focus to master.
+  -- Workspace Navigation.
+  , ((myModMask, xK_KP_Add     ), moveTo Next hiddenWS) -- Cycle to next hidden workspace.
+  , ((myModMask, xK_KP_Subtract), moveTo Prev hiddenWS) -- Cycle to previous hidden workspace.
   -- Window Swapping.
   , ((myModMask .|. shiftMask, xK_j), windows W.swapDown  ) -- Swap with the next window.
   , ((myModMask .|. shiftMask, xK_k), windows W.swapUp    ) -- Swap with the previous window.
@@ -84,10 +87,10 @@ myKeys =
   , ((myModMask, xK_F12), sendMessage NextLayout   ) -- Cycle layouts.
   ]
   ++ 
-  -- Workspace Navigation.
+  -- More Workspace Navigation.
   [((m .|. myModMask, k), windows $ f i)
       | (i, k) <- zip myWorkspaces numPadKeys
-      , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
+      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
   ]
 
 -- Define numpad keys.
