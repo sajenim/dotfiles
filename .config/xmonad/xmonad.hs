@@ -58,22 +58,20 @@ myConfig = def
 
 -- The Keybinding Configuration.
 myKeys =
-  -- Holy Trinity.
-  [ ((myModMask, xK_Return), spawn $ myTerminal) -- Open the terminal.
-  , ((myModMask, xK_Delete), kill              ) -- Kill the focused program.
-  , ((myModMask, xK_slash ), spawn "dmenu_run" ) -- Open application launcher.
-  -- Miscellaneous Binds.
-  , ((myModMask, xK_Tab   ), nextScreen               ) -- Cycle monitor focus.
-  , ((myModMask, xK_q     ), sendMessage Rotate       ) -- Rotate layout horizontal | vertical.
-  , ((myModMask, xK_s     ), sendMessage ToggleStruts ) -- Toggle bar hide | show.
+  -- Spawn Programs.
+  [ ((myModMask, xK_Return), spawn myTerminal         ) -- Open the terminal.
+  , ((myModMask, xK_slash ), spawn "dmenu_run"        ) -- Open application launcher.
   , ((myModMask, xK_Escape), spawn "systemctl suspend") -- Put computer to sleep.
+  -- Miscellaneous Binds.
+  , ((myModMask, xK_q), sendMessage Rotate      ) -- Rotate layout horizontal | vertical.
+  , ((myModMask, xK_s), sendMessage ToggleStruts) -- Toggle bar hide | show.
   -- Window Navigation.
   , ((myModMask, xK_j), windows W.focusDown  ) -- Move focus to next window.
   , ((myModMask, xK_k), windows W.focusUp    ) -- Move focus to previous window.
   , ((myModMask, xK_m), windows W.focusMaster) -- Move focus to master.
-  -- Workspace Navigation.
-  , ((myModMask, xK_KP_Add     ), moveTo Next hiddenWS) -- Cycle to next hidden workspace.
-  , ((myModMask, xK_KP_Subtract), moveTo Prev hiddenWS) -- Cycle to previous hidden workspace.
+  -- Workspace Navigation
+  , ((myModMask, xK_equal), moveTo Next hiddenWS) -- Cycle to next hidden workspace.
+  , ((myModMask, xK_minus), moveTo Prev hiddenWS) -- Cycle to previous hidden workspace.
   -- Window Swapping.
   , ((myModMask .|. shiftMask, xK_j), windows W.swapDown  ) -- Swap with the next window.
   , ((myModMask .|. shiftMask, xK_k), windows W.swapUp    ) -- Swap with the previous window.
@@ -83,11 +81,13 @@ myKeys =
   , ((myModMask .|. controlMask, xK_j), sendMessage $ ExpandTowards D) -- Expand window down.
   , ((myModMask .|. controlMask, xK_k), sendMessage $ ExpandTowards U) -- Expand window up.
   , ((myModMask .|. controlMask, xK_l), sendMessage $ ExpandTowards R) -- Expand window right.
-  -- Fkey Miscellaneous.
-  , ((myModMask, xK_F12), sendMessage NextLayout   ) -- Cycle layouts.
+   -- Special Keys.
+  , ((myModMask, xK_Delete   ), kill                  ) -- Kill the focused program.
+  , ((myModMask, xK_Tab      ), nextScreen            ) -- Cycle monitor focus.
+  , ((myModMask, xK_BackSpace), sendMessage NextLayout) -- Cycle layouts.
   ]
   ++ 
-  -- More Workspace Navigation.
+  -- More Workspace Navigation (Enable Numpad).
   [((m .|. myModMask, k), windows $ f i)
       | (i, k) <- zip myWorkspaces numPadKeys
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
